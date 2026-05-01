@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tyara Silva — Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #F7F3EE;
+    --ink: #1A1410;
+    --rust: #B5491E;
+    --warm-gray: #9A8F84;
+    --soft-brown: #C4A882;
+    --light: #EDE9E3;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { background: var(--cream); color: var(--ink); font-family: 'DM Sans', sans-serif; font-weight: 300; overflow-x: hidden; }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 1.4rem 3rem;
+    background: rgba(247,243,238,0.9); backdrop-filter: blur(14px);
+    border-bottom: 1px solid rgba(154,143,132,0.2);
+  }
+  .nav-logo { font-family: 'Cormorant Garamond', serif; font-size: 1.2rem; font-weight: 400; letter-spacing: .12em; text-transform: uppercase; color: var(--ink); text-decoration: none; }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a { text-decoration: none; color: var(--warm-gray); font-size: .75rem; letter-spacing: .14em; text-transform: uppercase; transition: color .3s; }
+  .nav-links a:hover { color: var(--rust); }
+
+  /* HERO */
+  #hero { min-height: 100vh; display: grid; grid-template-columns: 1fr 1fr; padding-top: 80px; overflow: hidden; }
+  .hero-left { display: flex; flex-direction: column; justify-content: center; padding: 5rem 3rem 5rem 5rem; }
+  .hero-tag { font-size: .72rem; letter-spacing: .22em; text-transform: uppercase; color: var(--rust); margin-bottom: 1.8rem; display: flex; align-items: center; gap: .8rem; }
+  .hero-tag::before { content: ''; display: block; width: 28px; height: 1px; background: var(--rust); }
+  .hero-name { font-family: 'Cormorant Garamond', serif; font-size: clamp(3.5rem, 6vw, 6rem); font-weight: 300; line-height: 1.0; color: var(--ink); margin-bottom: 1.8rem; }
+  .hero-name em { font-style: italic; color: var(--rust); }
+  .hero-desc { font-size: 1rem; line-height: 1.75; color: var(--warm-gray); max-width: 38ch; margin-bottom: 3rem; }
+  .hero-cta { display: inline-flex; align-items: center; gap: 1rem; text-decoration: none; font-size: .78rem; letter-spacing: .18em; text-transform: uppercase; color: var(--ink); border-bottom: 1px solid var(--ink); padding-bottom: .3rem; transition: all .3s; }
+  .hero-cta:hover { color: var(--rust); border-color: var(--rust); gap: 1.4rem; }
+  .hero-right { position: relative; overflow: hidden; background: var(--ink); }
+  .hero-right::before { content: 'TS'; position: absolute; bottom: -2rem; right: -1rem; font-family: 'Cormorant Garamond', serif; font-size: 22rem; font-weight: 300; color: rgba(255,255,255,0.04); line-height: 1; pointer-events: none; user-select: none; }
+  .hero-right-inner { position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: flex-end; padding: 3.5rem; }
+  .hero-roles { display: flex; flex-wrap: wrap; gap: .6rem; }
+  .role-tag { font-size: .7rem; letter-spacing: .14em; text-transform: uppercase; color: rgba(247,243,238,0.6); border: 1px solid rgba(247,243,238,0.15); padding: .4rem .9rem; border-radius: 999px; }
+
+  /* SECTION HEADER */
+  .section-header { display: flex; align-items: center; gap: 1.2rem; margin-bottom: 4rem; }
+  .section-num { font-family: 'Cormorant Garamond', serif; font-size: .85rem; color: var(--rust); letter-spacing: .1em; }
+  .section-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(2.2rem, 4vw, 3.2rem); font-weight: 300; }
+  .section-line { flex: 1; height: 1px; background: rgba(154,143,132,0.25); }
+
+  /* ABOUT */
+  #about { padding: 8rem 5rem; display: grid; grid-template-columns: 1.2fr 1fr; gap: 6rem; align-items: start; }
+  .about-text p { font-size: 1.05rem; line-height: 1.85; color: var(--warm-gray); margin-bottom: 1.4rem; }
+  .about-text p strong { color: var(--ink); font-weight: 500; }
+  .skills-block { display: flex; flex-direction: column; gap: 2rem; }
+  .skills-cat-title { font-size: .65rem; letter-spacing: .2em; text-transform: uppercase; color: var(--rust); margin-bottom: .8rem; }
+  .skills-grid { display: grid; grid-template-columns: 1fr 1fr; gap: .5rem; }
+  .skill-item { padding: .75rem 1rem; background: var(--light); border-left: 2px solid var(--soft-brown); font-size: .78rem; color: var(--ink); }
+  .skill-item.full { grid-column: 1 / -1; }
+
+  /* AI */
+  #ai { padding: 8rem 5rem; background: var(--ink); }
+  #ai .section-title { color: var(--cream); }
+  #ai .section-num { color: var(--soft-brown); }
+  #ai .section-line { background: rgba(247,243,238,0.1); }
+  .ai-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start; }
+  .ai-text p { font-size: 1rem; line-height: 1.85; color: rgba(247,243,238,0.45); margin-bottom: 1.3rem; }
+  .ai-text p strong { color: var(--cream); font-weight: 400; }
+  .ai-text p em { color: var(--soft-brown); font-style: italic; }
+  .ai-tools-grid { display: grid; grid-template-columns: 1fr 1fr; gap: .5rem; }
+  .ai-tool { padding: .8rem 1rem; border: 1px solid rgba(247,243,238,0.07); font-size: .75rem; color: rgba(247,243,238,0.42); }
+  .ai-tool-lbl { font-size: .58rem; letter-spacing: .18em; text-transform: uppercase; color: var(--rust); display: block; margin-bottom: .2rem; }
+
+  /* VIDEO EMBED */
+  .video-embed-wrap { position: relative; width: 100%; background: #0a0704; overflow: hidden; }
+  .video-embed-wrap iframe { display: block; width: 100%; aspect-ratio: 9/16; border: none; }
+  .video-embed-wrap.landscape iframe { aspect-ratio: 16/9; }
+
+  /* HILO */
+  #hilo { padding: 8rem 5rem; background: var(--ink); }
+  #hilo .section-title { color: var(--cream); }
+  #hilo .section-num { color: var(--soft-brown); }
+  #hilo .section-line { background: rgba(247,243,238,0.1); }
+  .hilo-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start; }
+  .proj-type { font-size: .68rem; letter-spacing: .2em; text-transform: uppercase; color: var(--rust); margin-bottom: 1rem; }
+  .proj-title-dark { font-family: 'Cormorant Garamond', serif; font-size: 3rem; font-weight: 300; color: var(--cream); line-height: 1.15; margin-bottom: 1.5rem; }
+  .proj-title-dark em { font-style: italic; color: var(--soft-brown); }
+  .proj-desc-dark { font-size: .9rem; line-height: 1.82; color: rgba(247,243,238,0.42); margin-bottom: 1rem; }
+  .proj-desc-dark strong { color: rgba(247,243,238,0.72); font-weight: 400; }
+  .proj-tags-dark { display: flex; flex-wrap: wrap; gap: .5rem; margin-top: 1.8rem; }
+  .proj-tag-dark { font-size: .65rem; letter-spacing: .14em; text-transform: uppercase; color: rgba(247,243,238,0.3); border: 1px solid rgba(247,243,238,0.08); padding: .3rem .75rem; border-radius: 999px; }
+  .proj-btn { display: inline-flex; align-items: center; gap: .5rem; margin-top: 1.8rem; font-size: .7rem; letter-spacing: .14em; text-transform: uppercase; color: var(--soft-brown); border: 1px solid rgba(196,168,130,0.3); padding: .6rem 1.2rem; border-radius: 999px; text-decoration: none; transition: all .3s; }
+  .proj-btn:hover { background: rgba(196,168,130,0.1); }
+
+  /* BETULAR */
+  #betular { padding: 8rem 5rem; background: #120d08; }
+  #betular .section-title { color: #F0E8DC; }
+  #betular .section-num { color: #C4A882; }
+  #betular .section-line { background: rgba(240,232,220,0.1); }
+  .betular-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start; }
+  .betular-type { font-size: .68rem; letter-spacing: .2em; text-transform: uppercase; color: #8B4C2E; margin-bottom: 1rem; }
+  .betular-title { font-family: 'Cormorant Garamond', serif; font-size: 3rem; font-weight: 300; color: #F0E8DC; line-height: 1.15; margin-bottom: 1.5rem; }
+  .betular-title em { font-style: italic; color: #C4A882; }
+  .betular-desc { font-size: .9rem; line-height: 1.82; color: rgba(240,232,220,0.42); margin-bottom: 1rem; }
+  .betular-desc strong { color: rgba(240,232,220,0.72); font-weight: 400; }
+  .betular-tags { display: flex; flex-wrap: wrap; gap: .5rem; margin-top: 1.8rem; }
+  .betular-tag { font-size: .65rem; letter-spacing: .14em; text-transform: uppercase; color: rgba(240,232,220,0.3); border: 1px solid rgba(240,232,220,0.08); padding: .3rem .75rem; border-radius: 999px; }
+  /* Betular video embed - landscape */
+  .betular-video { border: 1px solid rgba(240,232,220,0.07); overflow: hidden; }
+  .betular-video iframe { display: block; width: 100%; aspect-ratio: 16/9; border: none; }
+
+  /* CONTENT */
+  #content { padding: 8rem 5rem; }
+  .content-intro { max-width: 60ch; margin-bottom: 4rem; }
+  .content-intro p { font-size: 1.05rem; line-height: 1.82; color: var(--warm-gray); margin-bottom: 1rem; }
+  .content-intro p strong { color: var(--ink); font-weight: 500; }
+
+  .video-row { display: flex; flex-direction: column; gap: 5rem; }
+  .video-block { display: grid; grid-template-columns: 1fr 2fr; gap: 4rem; align-items: start; }
+  .video-block.reverse { grid-template-columns: 2fr 1fr; }
+  .video-block.reverse .video-info { order: 2; }
+  .video-block.reverse .video-media { order: 1; }
+  .video-divider { height: 1px; background: rgba(154,143,132,0.2); }
+
+  .video-cat { font-size: .65rem; letter-spacing: .22em; text-transform: uppercase; color: var(--rust); margin-bottom: .8rem; }
+  .video-title { font-family: 'Cormorant Garamond', serif; font-size: 2.5rem; font-weight: 300; color: var(--ink); line-height: 1.1; }
+  .video-title em { font-style: italic; }
+
+  .video-pair { display: grid; grid-template-columns: 1fr 1fr; gap: .8rem; }
+  .video-pair .video-embed-wrap iframe { aspect-ratio: 9/16; }
+
+  /* EXPERIENCE */
+  #experience { padding: 8rem 5rem; background: var(--light); }
+  .exp-company-header { display: flex; align-items: center; gap: 1.5rem; padding-bottom: 1.5rem; border-bottom: 1px solid rgba(154,143,132,0.2); margin-bottom: 0; }
+  .exp-logo-placeholder { width: 48px; height: 48px; background: var(--ink); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: .6rem; color: rgba(247,243,238,0.5); letter-spacing: .06em; }
+  .exp-company-name { font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; font-weight: 400; color: var(--ink); }
+  .exp-company-meta { font-size: .75rem; color: var(--warm-gray); }
+  .exp-roles-list { display: flex; flex-direction: column; margin-bottom: 3rem; }
+  .exp-role-item { padding: 2rem 0 2rem 4rem; border-left: 1px solid rgba(154,143,132,0.25); margin-left: 1.5rem; position: relative; }
+  .exp-role-item::before { content: ''; position: absolute; left: -5px; top: 2.4rem; width: 9px; height: 9px; border-radius: 50%; background: var(--rust); border: 2px solid var(--light); }
+  .exp-role-item:last-child { border-left-color: transparent; }
+  .exp-role-period { font-size: .65rem; letter-spacing: .2em; text-transform: uppercase; color: var(--warm-gray); margin-bottom: .4rem; }
+  .exp-role-title { font-size: 1rem; font-weight: 500; color: var(--ink); margin-bottom: .25rem; }
+  .exp-role-type { font-size: .75rem; color: var(--rust); margin-bottom: 1rem; }
+  .exp-role-desc { font-size: .88rem; line-height: 1.75; color: var(--warm-gray); }
+  .exp-role-desc strong { color: var(--ink); font-weight: 500; }
+  .exp-tasks { margin-top: 1rem; display: flex; flex-direction: column; gap: .4rem; }
+  .exp-task { display: flex; align-items: baseline; gap: .6rem; font-size: .84rem; color: var(--warm-gray); line-height: 1.5; }
+  .exp-task::before { content: '—'; color: var(--soft-brown); flex-shrink: 0; }
+  .exp-link { display: inline-block; margin-top: 1rem; font-size: .7rem; letter-spacing: .14em; text-transform: uppercase; color: var(--rust); text-decoration: none; border-bottom: 1px solid rgba(181,73,30,0.3); padding-bottom: .1rem; transition: border-color .3s; }
+  .exp-link:hover { border-color: var(--rust); }
+  .exp-uade { padding: 2.5rem; background: var(--cream); border-top: 2px solid rgba(154,143,132,0.4); }
+  .exp-uade-period { font-size: .65rem; letter-spacing: .2em; text-transform: uppercase; color: var(--warm-gray); margin-bottom: .5rem; }
+  .exp-uade-name { font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; font-weight: 400; color: var(--ink); margin-bottom: .25rem; }
+  .exp-uade-role { font-size: .82rem; color: var(--rust); margin-bottom: 1rem; font-weight: 500; }
+  .exp-uade-desc { font-size: .88rem; line-height: 1.75; color: var(--warm-gray); }
+  .exp-uade-desc strong { color: var(--ink); font-weight: 500; }
+
+  /* APPROACH */
+  #approach { padding: 8rem 5rem; }
+  .approach-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 3rem; }
+  .approach-card { padding-top: 2rem; border-top: 1px solid rgba(154,143,132,0.3); }
+  .approach-icon { font-family: 'Cormorant Garamond', serif; font-size: 2.5rem; font-weight: 300; color: var(--rust); margin-bottom: 1.2rem; line-height: 1; }
+  .approach-name { font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; font-weight: 400; color: var(--ink); margin-bottom: .8rem; }
+  .approach-text { font-size: .88rem; line-height: 1.75; color: var(--warm-gray); }
+
+  /* CONTACT */
+  #contact { padding: 8rem 5rem; background: var(--ink); display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; align-items: center; }
+  .contact-heading { font-family: 'Cormorant Garamond', serif; font-size: clamp(2.5rem, 5vw, 4.5rem); font-weight: 300; line-height: 1.1; color: var(--cream); }
+  .contact-heading em { font-style: italic; color: var(--soft-brown); }
+  .contact-links { display: flex; flex-direction: column; gap: 2rem; }
+  .contact-item { display: flex; flex-direction: column; gap: .3rem; }
+  .contact-label { font-size: .65rem; letter-spacing: .22em; text-transform: uppercase; color: rgba(247,243,238,0.3); }
+  .contact-value { font-size: 1rem; color: var(--cream); text-decoration: none; border-bottom: 1px solid transparent; transition: all .3s; display: inline-block; padding-bottom: .1rem; width: fit-content; }
+  .contact-value:hover { color: var(--soft-brown); border-color: var(--soft-brown); }
+
+  footer { padding: 2rem 5rem; display: flex; justify-content: space-between; align-items: center; border-top: 1px solid rgba(154,143,132,0.2); }
+  footer p { font-size: .72rem; color: var(--warm-gray); letter-spacing: .06em; }
+
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(28px); } to { opacity: 1; transform: translateY(0); } }
+  .hero-tag  { animation: fadeUp .7s .10s ease both; }
+  .hero-name { animation: fadeUp .7s .22s ease both; }
+  .hero-desc { animation: fadeUp .7s .34s ease both; }
+  .hero-cta  { animation: fadeUp .7s .46s ease both; }
+  .hero-roles { animation: fadeUp .7s .30s ease both; }
+
+  @media (max-width: 900px) {
+    nav { padding: 1.2rem 1.5rem; }
+    .nav-links { gap: 1rem; flex-wrap: wrap; }
+    #hero { grid-template-columns: 1fr; min-height: auto; }
+    .hero-left { padding: 6rem 1.8rem 3rem; }
+    .hero-right { height: 55vw; min-height: 220px; }
+    #about, #contact { grid-template-columns: 1fr; padding: 5rem 1.8rem; gap: 3rem; }
+    #ai, #hilo, #betular, #content, #experience, #approach { padding: 5rem 1.8rem; }
+    .ai-layout, .hilo-layout, .betular-layout { grid-template-columns: 1fr; gap: 3rem; }
+    .video-block, .video-block.reverse { grid-template-columns: 1fr; }
+    .video-block.reverse .video-info, .video-block.reverse .video-media { order: unset; }
+    .video-pair { grid-template-columns: 1fr; }
+    .approach-grid { grid-template-columns: 1fr; gap: 2rem; }
+    footer { padding: 2rem 1.8rem; flex-direction: column; gap: 1rem; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="#hero">Tyara Silva</a>
+  <ul class="nav-links">
+    <li><a href="#about">Sobre mí</a></li>
+    <li><a href="#ai">IA</a></li>
+    <li><a href="#hilo">Hilo</a></li>
+    <li><a href="#betular">Betular</a></li>
+    <li><a href="#content">Contenido</a></li>
+    <li><a href="#experience">Experiencia</a></li>
+    <li><a href="#contact">Contacto</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-left">
+    <p class="hero-tag">Comunicación Digital · UADE 2025</p>
+    <h1 class="hero-name">Tyara<br><em>Silva</em></h1>
+    <p class="hero-desc">Licenciada en Comunicación Digital e Interactiva. Combino estrategia, creatividad y narrativa para crear experiencias que conectan marcas con personas.</p>
+    <a class="hero-cta" href="#hilo">Ver proyectos →</a>
+  </div>
+  <div class="hero-right">
+    <div class="hero-right-inner">
+      <div class="hero-roles">
+        <span class="role-tag">Estrategia de contenido</span>
+        <span class="role-tag">Diseño editorial</span>
+        <span class="role-tag">Relaciones Públicas</span>
+        <span class="role-tag">UX Research</span>
+        <span class="role-tag">Real time marketing</span>
+        <span class="role-tag">IA aplicada</span>
+        <span class="role-tag">Asistente de Producto</span>
+        <span class="role-tag">Edición audiovisual</span>
+        <span class="role-tag">Contenido UGC</span>
+        <span class="role-tag">WordPress · Elementor</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="about-text">
+    <div class="section-header">
+      <span class="section-num">01</span>
+      <h2 class="section-title">Sobre mí</h2>
+      <div class="section-line"></div>
+    </div>
+    <p>Soy licenciada en Comunicación Digital e Interactiva, egresada de <strong>UADE</strong>. Tengo una mirada que integra el pensamiento estratégico con la sensibilidad creativa y la atención al detalle.</p>
+    <p>Trabajo en <strong>T-Mobs</strong>, empresa global de mobile entertainment y telecomunicaciones. Pasé de pasante a asistente de producto, y hoy colaboro en el rediseño de la web de la empresa, la gestión de contenido en sus plataformas digitales y el área comercial de <strong>VAS (Value Added Services)</strong>.</p>
+    <p>Me apasiona crear contenido que funcione de verdad: con criterio analítico para entender qué, cuándo y por qué algo conecta, y con creatividad para ejecutarlo bien.</p>
+  </div>
+  <div class="skills-block">
+    <div>
+      <p class="skills-cat-title">Diseño y edición</p>
+      <div class="skills-grid">
+        <div class="skill-item">Canva</div>
+        <div class="skill-item">Photoshop</div>
+        <div class="skill-item">Illustrator</div>
+        <div class="skill-item">Premiere Pro</div>
+        <div class="skill-item">Adobe Audition</div>
+        <div class="skill-item">CapCut</div>
+        <div class="skill-item">Figma (básico)</div>
+        <div class="skill-item">WordPress</div>
+        <div class="skill-item full">Elementor</div>
+      </div>
+    </div>
+    <div>
+      <p class="skills-cat-title">Comunicación y contenido</p>
+      <div class="skills-grid">
+        <div class="skill-item">Edición de video</div>
+        <div class="skill-item">Edición de audio</div>
+        <div class="skill-item">Edición fotográfica</div>
+        <div class="skill-item">Creación de contenido</div>
+        <div class="skill-item full">Manejo integral de redes sociales</div>
+        <div class="skill-item full">Análisis de estadísticas en redes</div>
+        <div class="skill-item full">Estrategia de comunicación digital</div>
+        <div class="skill-item">Real time marketing</div>
+        <div class="skill-item">UX Research</div>
+        <div class="skill-item">Relaciones Públicas</div>
+        <div class="skill-item">Gestión de eventos</div>
+        <div class="skill-item">Diseño editorial</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- AI -->
+<section id="ai">
+  <div class="section-header">
+    <span class="section-num">02</span>
+    <h2 class="section-title">Mi mirada sobre la IA</h2>
+    <div class="section-line"></div>
+  </div>
+  <div class="ai-layout">
+    <div class="ai-text">
+      <p>Uso la IA como una herramienta para <strong>pensar y expresarme</strong>, no solo para buscar respuestas. Me sirve para poner en palabras cosas que ya intuyo, entender lo que me genera dudas y ordenar ideas que están medio confusas para volverlas algo claro y útil.</p>
+      <p>Tengo una mirada bastante <em>analítica y crítica</em>: sé cuándo la IA realmente suma y cuándo puede terminar siendo un atajo que baja la calidad. No me interesa usarla para reemplazar mi criterio, sino para <strong>potenciarlo</strong>.</p>
+      <p>En mi experiencia en T-Mobs, participé en proyectos donde la IA tuvo un rol central en el análisis, especialmente para identificar oportunidades de optimización para clientes del sector contable.</p>
+    </div>
+    <div>
+      <p class="skills-cat-title" style="color:rgba(196,168,130,0.6); margin-bottom:1rem;">Herramientas que uso</p>
+      <div class="ai-tools-grid">
+        <div class="ai-tool"><span class="ai-tool-lbl">Texto</span>ChatGPT · Claude · Gemini</div>
+        <div class="ai-tool"><span class="ai-tool-lbl">Imagen</span>Midjourney · Firefly</div>
+        <div class="ai-tool"><span class="ai-tool-lbl">Productividad</span>Notion AI · Copilot</div>
+        <div class="ai-tool"><span class="ai-tool-lbl">Audio / video</span>ElevenLabs · Runway</div>
+        <div class="ai-tool"><span class="ai-tool-lbl">Estrategia</span>Prompting avanzado</div>
+        <div class="ai-tool"><span class="ai-tool-lbl">Producto</span>Flujos con IA</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HILO -->
+<section id="hilo">
+  <div class="section-header">
+    <span class="section-num">03</span>
+    <h2 class="section-title">Proyecto · Hilo</h2>
+    <div class="section-line"></div>
+  </div>
+  <div class="hilo-layout">
+    <div>
+      <p class="proj-type">Trabajo de Investigación Final destacado por la universidad · UADE 2025</p>
+      <h3 class="proj-title-dark"><em>Hilo</em><br>El camino hacia lo confiable</h3>
+      <p class="proj-desc-dark">Plataforma B2B digital para profesionalizar la relación entre fábricas y mayoristas de indumentaria en Argentina. Investigación de campo en el polo textil de Avellaneda, diseño UX con Design Thinking, prototipo en Figma testeado con 25 usuarios y plan de comunicación en tres fases.</p>
+      <p class="proj-desc-dark">Mi rol: <strong>estrategia de comunicación</strong>, identidad de campaña ("El hilo que te conecta con lo confiable"), activación digital y territorial, y relaciones públicas institucionales con ProTejer y la CIAI.</p>
+      <div class="proj-tags-dark">
+        <span class="proj-tag-dark">Estrategia B2B</span>
+        <span class="proj-tag-dark">Plan de comunicación</span>
+        <span class="proj-tag-dark">UX Research</span>
+        <span class="proj-tag-dark">Identidad de campaña</span>
+        <span class="proj-tag-dark">Design Thinking</span>
+        <span class="proj-tag-dark">RRPP institucionales</span>
+      </div>
+      <a class="proj-btn" href="PRESENTACION_HILO.pdf" download>↓ Descargar presentación</a>
+    </div>
+    <div>
+      <div class="video-embed-wrap landscape">
+        <iframe src="https://drive.google.com/file/d/11kxb3Acdv2U8ePHZkcoxOS1YoxHOPmKl/preview" allow="autoplay" allowfullscreen></iframe>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BETULAR -->
+<section id="betular">
+  <div class="section-header">
+    <span class="section-num">04</span>
+    <h2 class="section-title">Proyecto · Betular</h2>
+    <div class="section-line"></div>
+  </div>
+  <div class="betular-layout">
+    <div>
+      <p class="betular-type">Organización de Eventos · UADE 2025</p>
+      <h3 class="betular-title">Betular<br><em>Pâtisserie</em></h3>
+      <p class="betular-desc">Preproducción integral del evento de inauguración del nuevo local de Betular Pâtisserie en Vicente López, organizado por <strong>Luxe Ceremonies</strong>. Un cóctel al atardecer junto al río para 50 invitados VIP: chefs, influencers y referentes gastronómicos.</p>
+      <p class="betular-desc">Mi rol: <strong>dirección creativa y diseño</strong> de toda la línea estética. Identidad visual, invitaciones, moodboard, menú, gifting y difusión en redes con hashtag oficial.</p>
+      <div class="betular-tags">
+        <span class="betular-tag">Dirección creativa</span>
+        <span class="betular-tag">Diseño editorial</span>
+        <span class="betular-tag">Eventos corporativos</span>
+        <span class="betular-tag">Identidad visual</span>
+        <span class="betular-tag">RRPP</span>
+        <span class="betular-tag">Estética de marca</span>
+      </div>
+    </div>
+    <div>
+      <div class="betular-video">
+        <iframe src="https://drive.google.com/file/d/1eGacm2tQKoCjHh9O81vtweT9uHwFDawe/preview" allow="autoplay" allowfullscreen></iframe>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTENT -->
+<section id="content">
+  <div class="section-header">
+    <span class="section-num">05</span>
+    <h2 class="section-title">Creación de contenido</h2>
+    <div class="section-line"></div>
+  </div>
+  <div class="content-intro">
+    <p>Hago contenido <strong>orgánico, creativo y con criterio</strong>. Me interesa tanto la parte visual y narrativa como entender las tendencias: saber qué sirve, cuándo funciona y por qué. <strong>Real time marketing</strong>, UGC y formatos que se sienten auténticos.</p>
+  </div>
+
+  <div class="video-row">
+
+    <!-- MADDA PIJAMAS -->
+    <div class="video-block">
+      <div class="video-embed-wrap">
+        <iframe src="https://drive.google.com/file/d/1FwCLhAyn4m_3_bB95RxVBDLzOAzPbgpE/preview" allow="autoplay" allowfullscreen></iframe>
+      </div>
+      <div>
+        <p class="video-cat">UGC · Moda</p>
+        <h3 class="video-title">MADDA<br><em>Pijamas</em></h3>
+      </div>
+    </div>
+
+    <div class="video-divider"></div>
+
+    <!-- CONTENIDO FOODIE -->
+    <div class="video-block reverse">
+      <div>
+        <p class="video-cat">Gastronómico</p>
+        <h3 class="video-title">Contenido<br><em>Foodie</em></h3>
+      </div>
+      <div class="video-pair">
+        <div class="video-embed-wrap">
+          <iframe src="https://drive.google.com/file/d/1THUS0WK5fEgE1kw9mb4dtBGDypvUZIWC/preview" allow="autoplay" allowfullscreen></iframe>
+        </div>
+        <div class="video-embed-wrap">
+          <iframe src="https://drive.google.com/file/d/1fx81K3JXj1692t7w0sZYeOc8L8GQfN1o/preview" allow="autoplay" allowfullscreen></iframe>
+        </div>
+      </div>
+    </div>
+
+    <div class="video-divider"></div>
+
+    <!-- PELUQUERO @alexpodest -->
+    <div class="video-block">
+      <div class="video-pair">
+        <div class="video-embed-wrap">
+          <iframe src="https://drive.google.com/file/d/1G__l__uZO-mFJGHHo_w22dkE72ZqGLbx/preview" allow="autoplay" allowfullscreen></iframe>
+        </div>
+        <div class="video-embed-wrap">
+          <iframe src="https://drive.google.com/file/d/1Vbs1KJZcL68QXmqsJ7Vqm9fOD7GLiAmZ/preview" allow="autoplay" allowfullscreen></iframe>
+        </div>
+      </div>
+      <div>
+        <p class="video-cat">Orgánico · Servicios</p>
+        <h3 class="video-title">Contenido para<br><em>@alexpodest</em></h3>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="section-header">
+    <span class="section-num">06</span>
+    <h2 class="section-title">Experiencia</h2>
+    <div class="section-line"></div>
+  </div>
+
+  <div class="exp-company-header">
+    <div class="exp-logo-placeholder">T-MOB</div>
+    <div>
+      <div class="exp-company-name">T-Mobs</div>
+      <div class="exp-company-meta">2 años 2 meses · Híbrido · Buenos Aires</div>
+    </div>
+  </div>
+
+  <div class="exp-roles-list">
+    <div class="exp-role-item">
+      <p class="exp-role-period">Oct. 2025 — Actualidad · 8 meses</p>
+      <p class="exp-role-title">Asistente de Producto</p>
+      <p class="exp-role-type">Jornada parcial</p>
+      <p class="exp-role-desc">Empresa global de mobile entertainment y telecomunicaciones con presencia en cinco continentes y partnerships con Google, Disney y Meta.</p>
+      <div class="exp-tasks">
+        <div class="exp-task">Rediseño de la web de la empresa usando <strong>WordPress con Elementor</strong></div>
+        <div class="exp-task">Contacto con clientes para sumar al portfolio comercial</div>
+        <div class="exp-task"><strong>Presentaciones comerciales</strong> para empresas de telefonía en el área de VAS</div>
+        <div class="exp-task">Gestión de contenido en plataformas digitales: sitio de esports y app de comics via WordPress</div>
+        <div class="exp-task">Participación en análisis de oportunidades de optimización con IA para clientes del sector contable</div>
+      </div>
+      <a class="exp-link" href="https://www.t-mobs.com" target="_blank">t-mobs.com →</a>
+    </div>
+
+    <div class="exp-role-item">
+      <p class="exp-role-period">Abr. 2024 — Oct. 2025 · 1 año 7 meses</p>
+      <p class="exp-role-title">Pasante de Producto</p>
+      <p class="exp-role-type">Contrato de prácticas · Provincia de Buenos Aires</p>
+      <p class="exp-role-desc">Primera experiencia en producto digital. Colaboré en el ciclo de desarrollo, análisis de usuarios, comunicación interna y documentación de procesos.</p>
+    </div>
+  </div>
+
+  <div class="exp-uade">
+    <p class="exp-uade-period">2022 — 2025</p>
+    <p class="exp-uade-name">UADE</p>
+    <p class="exp-uade-role">Lic. Comunicación Digital e Interactiva</p>
+    <p class="exp-uade-desc">Proyectos destacados: <strong>Hilo</strong> (TIF — plataforma B2B textil) y <strong>Betular Pâtisserie</strong> (evento corporativo). Dirección creativa y estrategia de comunicación en ambos.</p>
+  </div>
+</section>
+
+<!-- APPROACH -->
+<section id="approach">
+  <div class="section-header">
+    <span class="section-num">07</span>
+    <h2 class="section-title">Mi enfoque</h2>
+    <div class="section-line"></div>
+  </div>
+  <div class="approach-grid">
+    <div class="approach-card">
+      <div class="approach-icon">①</div>
+      <h3 class="approach-name">Primero, entender</h3>
+      <p class="approach-text">Antes de crear, investigo. Me interesa conocer el contexto, las personas y el problema real antes de proponer cualquier solución comunicacional.</p>
+    </div>
+    <div class="approach-card">
+      <div class="approach-icon">②</div>
+      <h3 class="approach-name">Creatividad con criterio</h3>
+      <p class="approach-text">Analizo tendencias para saber qué funciona y cuándo. El contenido que hago es orgánico y auténtico, pero también estratégico.</p>
+    </div>
+    <div class="approach-card">
+      <div class="approach-icon">③</div>
+      <h3 class="approach-name">Impacto real</h3>
+      <p class="approach-text">Me importa que lo que comunico llegue de verdad. No solo que se vea, sino que genere una conexión genuina entre la marca y las personas.</p>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div>
+    <h2 class="contact-heading">Hablemos de<br>tu próximo<br><em>proyecto</em></h2>
+  </div>
+  <div class="contact-links">
+    <div class="contact-item">
+      <span class="contact-label">Email</span>
+      <a class="contact-value" href="mailto:tyarasilvam@gmail.com">tyarasilvam@gmail.com</a>
+    </div>
+    <div class="contact-item">
+      <span class="contact-label">LinkedIn</span>
+      <a class="contact-value" href="https://www.linkedin.com/in/tyara-silva/" target="_blank">linkedin.com/in/tyara-silva</a>
+    </div>
+    <div class="contact-item">
+      <span class="contact-label">Ubicación</span>
+      <span class="contact-value" style="cursor:default;">Buenos Aires, Argentina</span>
+    </div>
+    <div class="contact-item">
+      <span class="contact-label">Disponibilidad</span>
+      <span class="contact-value" style="cursor:default; color:#7aaa6e;">Abierta a oportunidades</span>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>© 2025 Tyara Silva · Comunicación Digital e Interactiva</p>
+  <p>UADE · Buenos Aires, Argentina</p>
+</footer>
+
+</body>
+</html>
